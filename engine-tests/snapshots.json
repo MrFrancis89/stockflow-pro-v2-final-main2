@@ -1,0 +1,216 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "engine": "ft-engine.js",
+    "tolerance": 0.01,
+    "description": "Fixtures de regressão para calcFicha(). Cada caso define ctx + ficha + expected. O runner valida que todos os campos numéricos ficam dentro de tolerance=0.01 do valor esperado.",
+    "cases": 8
+  },
+  "cases": [
+    {
+      "id": "TC01-ingrediente-simples",
+      "description": "Ingrediente único, sem perda, sem custo fixo, com preço de venda.",
+      "ctx": {
+        "ingredients": [
+          { "id": "ing1", "name": "Farinha", "purchasePrice": 5, "packageWeightG": 1000, "lossPercent": 0, "unit": "g" }
+        ],
+        "preparos": [],
+        "fixedCosts": [],
+        "fichas": [],
+        "settings": { "monthlyVolume": 100, "workingDays": 20, "targetMargin": 30 }
+      },
+      "ficha": {
+        "id": "f1", "productName": "Pizza Margherita", "size": "M",
+        "items": [{ "id": "ing1", "type": "ingredient", "weightG": 300 }],
+        "sellingPrice": 30, "alertThreshold": 20, "includeFixedCosts": false
+      },
+      "expected": {
+        "varCost":       1.5,
+        "fixCost":       0,
+        "totalCost":     1.5,
+        "profit":        28.5,
+        "margin":        95,
+        "breakeven":     1.5,
+        "isLoss":        false,
+        "isZeroPrice":   false
+      }
+    },
+    {
+      "id": "TC02-perda-percentual",
+      "description": "Ingrediente com 10% de perda eleva o custo por grama.",
+      "ctx": {
+        "ingredients": [
+          { "id": "moz", "name": "Mozzarella", "purchasePrice": 30, "packageWeightG": 500, "lossPercent": 10, "unit": "g" }
+        ],
+        "preparos": [],
+        "fixedCosts": [],
+        "fichas": [],
+        "settings": { "monthlyVolume": 0, "workingDays": 20, "targetMargin": 30 }
+      },
+      "ficha": {
+        "id": "f2", "productName": "Pizza Quatro Queijos", "size": "G",
+        "items": [{ "id": "moz", "type": "ingredient", "weightG": 200 }],
+        "sellingPrice": 0, "alertThreshold": 0, "includeFixedCosts": false
+      },
+      "expected": {
+        "varCost":     13.33,
+        "fixCost":     0,
+        "totalCost":   13.33,
+        "profit":      -13.33,
+        "margin":      0,
+        "isZeroPrice": true,
+        "isLoss":      false
+      }
+    },
+    {
+      "id": "TC03-custo-fixo-rateado",
+      "description": "Com custo fixo incluído, fixCost deve ser totalFixos / monthlyVolume.",
+      "ctx": {
+        "ingredients": [
+          { "id": "fm", "name": "Farinha", "purchasePrice": 4, "packageWeightG": 1000, "lossPercent": 0, "unit": "g" }
+        ],
+        "preparos": [],
+        "fixedCosts": [
+          { "id": "fc1", "name": "Aluguel", "value": 1000 }
+        ],
+        "fichas": [],
+        "settings": { "monthlyVolume": 100, "workingDays": 20, "targetMargin": 30 }
+      },
+      "ficha": {
+        "id": "f3", "productName": "Pizza Frango", "size": "M",
+        "items": [{ "id": "fm", "type": "ingredient", "weightG": 250 }],
+        "sellingPrice": 35, "alertThreshold": 15, "includeFixedCosts": true
+      },
+      "expected": {
+        "varCost":   1.0,
+        "fixCost":   10.0,
+        "totalCost": 11.0,
+        "profit":    24.0,
+        "isLoss":    false
+      }
+    },
+    {
+      "id": "TC04-ficha-sem-items",
+      "description": "Ficha sem ingredientes: varCost = 0.",
+      "ctx": {
+        "ingredients": [],
+        "preparos": [],
+        "fixedCosts": [],
+        "fichas": [],
+        "settings": { "monthlyVolume": 0, "workingDays": 20, "targetMargin": 30 }
+      },
+      "ficha": {
+        "id": "f4", "productName": "Pizza Teste", "size": "P",
+        "items": [],
+        "sellingPrice": 20, "alertThreshold": 0, "includeFixedCosts": false
+      },
+      "expected": {
+        "varCost":   0,
+        "fixCost":   0,
+        "totalCost": 0,
+        "profit":    20,
+        "margin":    100,
+        "isLoss":    false,
+        "isZeroPrice": false
+      }
+    },
+    {
+      "id": "TC05-preco-zero",
+      "description": "Preço de venda zero: isZeroPrice = true, margin = 0, profit negativo.",
+      "ctx": {
+        "ingredients": [
+          { "id": "q", "name": "Queijo", "purchasePrice": 20, "packageWeightG": 400, "lossPercent": 0, "unit": "g" }
+        ],
+        "preparos": [],
+        "fixedCosts": [],
+        "fichas": [],
+        "settings": { "monthlyVolume": 0, "workingDays": 20, "targetMargin": 30 }
+      },
+      "ficha": {
+        "id": "f5", "productName": "Pizza Queijo", "size": "G",
+        "items": [{ "id": "q", "type": "ingredient", "weightG": 100 }],
+        "sellingPrice": 0, "alertThreshold": 0, "includeFixedCosts": false
+      },
+      "expected": {
+        "varCost":     5.0,
+        "totalCost":   5.0,
+        "profit":      -5.0,
+        "margin":      0,
+        "isZeroPrice": true,
+        "isLoss":      false
+      }
+    },
+    {
+      "id": "TC06-preco-sugerido",
+      "description": "precoSugerido = totalCost / (1 - targetMargin/100) com margem alvo de 30%.",
+      "ctx": {
+        "ingredients": [
+          { "id": "i1", "name": "Ingrediente", "purchasePrice": 10, "packageWeightG": 100, "lossPercent": 0, "unit": "g" }
+        ],
+        "preparos": [],
+        "fixedCosts": [],
+        "fichas": [],
+        "settings": { "monthlyVolume": 0, "workingDays": 20, "targetMargin": 30 }
+      },
+      "ficha": {
+        "id": "f6", "productName": "Pizza X", "size": "M",
+        "items": [{ "id": "i1", "type": "ingredient", "weightG": 100 }],
+        "sellingPrice": 0, "alertThreshold": 0, "includeFixedCosts": false
+      },
+      "expected": {
+        "varCost":        10.0,
+        "totalCost":      10.0,
+        "precoSugerido":  14.29
+      }
+    },
+    {
+      "id": "TC07-alerta-margem",
+      "description": "isAlert quando margin <= alertThreshold e sellingPrice > 0.",
+      "ctx": {
+        "ingredients": [
+          { "id": "i2", "name": "Ingrediente Caro", "purchasePrice": 50, "packageWeightG": 100, "lossPercent": 0, "unit": "g" }
+        ],
+        "preparos": [],
+        "fixedCosts": [],
+        "fichas": [],
+        "settings": { "monthlyVolume": 0, "workingDays": 20, "targetMargin": 30 }
+      },
+      "ficha": {
+        "id": "f7", "productName": "Pizza Gourmet", "size": "GG",
+        "items": [{ "id": "i2", "type": "ingredient", "weightG": 50 }],
+        "sellingPrice": 30, "alertThreshold": 50, "includeFixedCosts": false
+      },
+      "expected": {
+        "varCost":   25.0,
+        "profit":    5.0,
+        "isAlert":   true,
+        "isLoss":    false
+      }
+    },
+    {
+      "id": "TC08-markup-e-margem-consistentes",
+      "description": "margin e markup devem ser matematicamente consistentes: margin = (1 - 1/markup) * 100.",
+      "ctx": {
+        "ingredients": [
+          { "id": "i3", "name": "Base", "purchasePrice": 10, "packageWeightG": 1000, "lossPercent": 0, "unit": "g" }
+        ],
+        "preparos": [],
+        "fixedCosts": [],
+        "fichas": [],
+        "settings": { "monthlyVolume": 0, "workingDays": 20, "targetMargin": 30 }
+      },
+      "ficha": {
+        "id": "f8", "productName": "Pizza Base", "size": "M",
+        "items": [{ "id": "i3", "type": "ingredient", "weightG": 500 }],
+        "sellingPrice": 15, "alertThreshold": 0, "includeFixedCosts": false
+      },
+      "expected": {
+        "varCost":   5.0,
+        "profit":    10.0,
+        "margin":    66.67,
+        "markup":    3.0,
+        "isLoss":    false
+      }
+    }
+  ]
+}
