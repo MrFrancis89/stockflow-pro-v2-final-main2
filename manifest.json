@@ -1,0 +1,87 @@
+{
+  "name": "StockFlow Pro",
+  "short_name": "StockFlow",
+  "description": "Controle de estoque de pizzaria + calculadora de massa de pizza — v10.0",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icone-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icone-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icone-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Adicionar Item",
+      "short_name": "Adicionar",
+      "description": "Ir direto para adicionar item",
+      "url": "./index.html#adicionar",
+      "icons": [
+        {
+          "src": "icone.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Lista Fácil",
+      "short_name": "Lista",
+      "description": "Abrir lista de compras",
+      "url": "./index.html#listafacil",
+      "icons": [
+        {
+          "src": "icone.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Massa Master",
+      "short_name": "Massa",
+      "description": "Calculadora de receita de massa de pizza",
+      "url": "./index.html#massa",
+      "icons": [
+        {
+          "src": "icone.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Produção Total",
+      "short_name": "Produção",
+      "description": "Planejamento de produção diária com todas as receitas",
+      "url": "./index.html#producao",
+      "icons": [
+        {
+          "src": "icone.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "categories": [
+    "productivity",
+    "utilities",
+    "food"
+  ],
+  "version": "9.9.48",
+  "id": "./index.html"
+}

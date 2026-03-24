@@ -1,0 +1,451 @@
+/* ft-v2-style.css — StockFlow Pro V2 — todos os novos componentes */
+
+:root {
+  --v2-green:  #30D158; --v2-amber: #FF9F0A; --v2-red: #FF453A;
+  --v2-blue:   #0A84FF; --v2-purple:#BF5AF2;
+  --v2-surf:   rgba(255,255,255,.06); --v2-border: rgba(255,255,255,.10);
+  --v2-r:      16px; --v2-rs: 10px;
+}
+.light-mode { --v2-surf: rgba(0,0,0,.04); --v2-border: rgba(0,0,0,.08); }
+@keyframes v2-in { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+/* ════════════════════════════════════════════════════════
+   1. CHIPS DE CATEGORIA (ft-receitas + cardápio)
+════════════════════════════════════════════════════════ */
+.ft-cat-chips{display:flex;gap:4px;overflow-x:auto;padding:4px 0;scrollbar-width:none}
+.ft-cat-chips::-webkit-scrollbar{display:none}
+.ft-cat-chip{flex-shrink:0;padding:5px 10px;border-radius:20px;border:1.5px solid var(--v2-border);
+  background:transparent;color:var(--ft-txt,#fff);font-size:11px;font-weight:600;cursor:pointer;
+  font-family:inherit;-webkit-tap-highlight-color:transparent;transition:all .15s;white-space:nowrap}
+.ft-cat-chip.active{background:var(--ft-acc,#FF9500);border-color:var(--ft-acc,#FF9500);color:#000}
+
+/* badges inline */
+.ft-cat-badge{display:inline-flex;align-items:center;font-size:10px;font-weight:700;
+  padding:2px 6px;border-radius:6px;margin-left:4px;white-space:nowrap}
+.ft-alerta-custo-badge{display:inline-flex;align-items:center;font-size:10px;font-weight:700;
+  padding:2px 6px;border-radius:6px;background:rgba(255,69,58,.18);color:#FF453A;margin-left:4px}
+
+/* receita com alerta */
+.ft-rec-alerta .ft-item-ico{color:#FF453A}
+.ft-rec-alerta .ft-pill-acc{background:rgba(255,69,58,.15)!important;color:#FF453A!important}
+
+/* ════════════════════════════════════════════════════════
+   2. PAGINAÇÃO (GAP 12)
+════════════════════════════════════════════════════════ */
+.ft-paginacao{display:flex;align-items:center;justify-content:center;gap:12px;padding:16px 0}
+.ft-pag-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--v2-border);
+  background:var(--v2-surf);color:var(--ft-txt,#fff);font-size:18px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:all .15s;font-family:inherit}
+.ft-pag-btn:disabled{opacity:.35;cursor:not-allowed}
+.ft-pag-btn:not(:disabled):active{background:rgba(255,255,255,.12)}
+.ft-pag-info{font-size:12px;color:var(--ft-txt3,rgba(255,255,255,.5))}
+
+/* ════════════════════════════════════════════════════════
+   3. VARIANTES POR TAMANHO — formulário receita (GAP 1-7)
+════════════════════════════════════════════════════════ */
+.ft-var-section{margin-top:16px}
+.ft-var-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.ft-var-hdr-title{font-size:13px;font-weight:700;color:var(--ft-txt,#fff)}
+
+/* Abas de tamanho */
+.ft-var-tabs{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none;flex-wrap:wrap}
+.ft-var-tabs::-webkit-scrollbar{display:none}
+.ft-var-tab{flex-shrink:0;padding:6px 12px;border-radius:10px;border:1.5px solid var(--v2-border);
+  background:var(--v2-surf);color:var(--ft-txt,#fff);font-size:12px;font-weight:600;cursor:pointer;
+  font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:52px;
+  -webkit-tap-highlight-color:transparent;transition:all .15s}
+.ft-var-tab.active{background:var(--ft-acc,#FF9500);border-color:var(--ft-acc,#FF9500);color:#000}
+.ft-var-tab-inativo{opacity:.5}
+.ft-var-tab-custo{font-size:10px;font-weight:400;opacity:.8}
+
+/* Conteúdo da variante */
+.ft-var-content{animation:v2-in .2s ease}
+.ft-var-pane{display:flex;flex-direction:column;gap:12px}
+.ft-var-pane-hdr{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ft-var-del-btn{width:32px;height:32px;border-radius:8px;border:1.5px solid rgba(255,69,58,.4);
+  background:rgba(255,69,58,.1);color:#FF453A;cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-family:inherit;flex-shrink:0;transition:background .15s}
+.ft-var-del-btn:active{background:rgba(255,69,58,.2)}
+
+/* Campo peso inline */
+.ft-ing-v2-inputs{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:3px}
+.ft-ing-peso-wrap{display:flex;align-items:center;gap:2px}
+.ft-ing-peso{width:52px!important;font-size:12px!important;padding:6px 6px!important}
+
+/* Totais da variante */
+.ft-var-totais{background:var(--v2-surf);border:1px solid var(--v2-border);border-radius:var(--v2-rs);
+  overflow:hidden}
+.ft-var-total-row{display:flex;justify-content:space-between;align-items:center;
+  padding:8px 12px;border-bottom:1px solid var(--v2-border);font-size:12px}
+.ft-var-total-row:last-child{border-bottom:none}
+.ft-var-total-lbl{color:var(--ft-txt3,rgba(255,255,255,.5));font-weight:500}
+.ft-var-total-val{font-weight:700;color:var(--ft-txt,#fff)}
+
+/* Card de preço + lucro inline (GAP 2) */
+.ft-var-preco-card{background:var(--v2-surf);border:1px solid var(--v2-border);
+  border-radius:var(--v2-rs);padding:12px}
+.ft-var-lucro-card{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.04);border-radius:var(--v2-rs);padding:10px 12px;flex:1;min-width:100px;gap:3px}
+.ft-var-lucro-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;
+  color:var(--ft-txt3,rgba(255,255,255,.5))}
+.ft-var-lucro-val{font-size:18px;font-weight:800;letter-spacing:-.3px}
+.ft-var-lucro-val.green{color:var(--v2-green)}
+.ft-var-lucro-val.red{color:var(--v2-red)}
+.ft-var-margem{font-size:11px;color:var(--ft-txt3,rgba(255,255,255,.5))}
+
+/* ════════════════════════════════════════════════════════
+   4. CARDÁPIO VISUAL (GAP 8 + 13)
+════════════════════════════════════════════════════════ */
+#ft-sec-car{padding:0 12px}
+.card-root{display:flex;flex-direction:column;gap:16px;padding:4px 0 32px;animation:v2-in .3s ease}
+
+/* Toolbar */
+.card-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.card-filtros{display:flex;gap:4px;overflow-x:auto;flex:1;scrollbar-width:none}
+.card-filtros::-webkit-scrollbar{display:none}
+.card-actions{display:flex;gap:6px;flex-shrink:0}
+
+/* Grade de receitas */
+.card-grupo{display:flex;flex-direction:column;gap:8px}
+.card-grupo-hdr{display:flex;align-items:center;gap:8px;padding:4px 0}
+.card-grupo-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.card-grupo-nome{font-size:13px;font-weight:700;color:var(--ft-txt,#fff)}
+.card-grupo-count{font-size:11px;color:var(--ft-txt3,rgba(255,255,255,.45));margin-left:auto}
+.card-grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px}
+
+/* Card de receita */
+.card-item{display:flex;border-radius:var(--v2-rs);overflow:hidden;
+  background:var(--v2-surf);border:1px solid var(--v2-border);transition:border-color .15s}
+.card-item:active{border-color:var(--ft-acc,#FF9500)}
+.card-item-alerta{border-color:rgba(255,69,58,.4)}
+.card-item-alerta .card-item-custo{color:#FF453A}
+.card-item-faixa{width:4px;flex-shrink:0}
+.card-item-body{padding:10px 10px 10px 8px;flex:1;display:flex;flex-direction:column;gap:4px}
+.card-item-nome{font-size:13px;font-weight:700;color:var(--ft-txt,#fff);line-height:1.3;word-break:break-word}
+.card-alerta-ico{font-size:11px;margin-left:4px}
+.card-item-custo{font-size:11px;color:var(--ft-txt3,rgba(255,255,255,.5))}
+
+/* Célula de tamanho */
+.card-tams{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.card-tam-cell{display:flex;flex-direction:column;align-items:center;gap:2px;
+  padding:4px 6px;border-radius:7px;min-width:36px;font-size:10px}
+.card-tam-cell.dispon{background:rgba(48,209,88,.12)}
+.card-tam-cell.indisp{background:rgba(255,255,255,.04);opacity:.5}
+.card-tam-nome{font-size:10px;font-weight:700;color:var(--ft-txt,#fff)}
+.card-dispon-dot{width:6px;height:6px;border-radius:50%;background:var(--v2-green)}
+.card-indisp-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2)}
+.card-tam-preco{font-size:9px;font-weight:700;color:var(--v2-green);white-space:nowrap}
+
+/* Modo lista */
+.card-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--v2-rs);
+  border:1px solid var(--v2-border)}
+.card-table{width:100%;border-collapse:collapse;font-size:12px}
+.card-th{padding:9px 12px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
+  color:var(--ft-txt3,rgba(255,255,255,.45));background:rgba(255,255,255,.04);
+  border-bottom:1px solid var(--v2-border);white-space:nowrap;text-align:center}
+.card-th:first-child{text-align:left}
+.card-td{padding:9px 12px;color:var(--ft-txt,#fff);text-align:center;
+  border-bottom:1px solid rgba(255,255,255,.04);font-size:12px}
+.card-td-nome{text-align:left;font-weight:600}
+.card-tr:last-child .card-td{border-bottom:none}
+.disp-ok{color:var(--v2-green);font-weight:700}
+.disp-no{color:var(--ft-txt3,rgba(255,255,255,.35))}
+.card-empty{padding:24px;text-align:center;font-size:13px;color:var(--ft-txt3,rgba(255,255,255,.4))}
+
+/* ════════════════════════════════════════════════════════
+   5. GESTÃO DE TAMANHOS (GAP 5)
+════════════════════════════════════════════════════════ */
+#ft-sec-tam{padding:0 16px}
+.tam-root{display:flex;flex-direction:column;gap:16px;padding:4px 0 32px;animation:v2-in .3s ease}
+.tam-hero{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0}
+.tam-hero-title{font-size:20px;font-weight:800;color:var(--ft-txt,#fff);margin:0;letter-spacing:-.3px}
+.tam-hero-sub{font-size:12px;color:var(--ft-txt3,rgba(255,255,255,.5));margin:3px 0 0}
+.tam-btn-add{flex-shrink:0;white-space:nowrap}
+.tam-lista{display:flex;flex-direction:column;gap:0;background:var(--v2-surf);
+  border:1px solid var(--v2-border);border-radius:var(--v2-r);overflow:hidden}
+.tam-item{display:flex;align-items:center;padding:12px 16px;gap:12px;
+  border-bottom:1px solid var(--v2-border);transition:background .15s}
+.tam-item:last-child{border-bottom:none}
+.tam-item-inativo{opacity:.5}
+.tam-item-info{flex:1;display:flex;align-items:center;gap:8px}
+.tam-item-nome{font-size:14px;font-weight:700;color:var(--ft-txt,#fff)}
+.tam-item-cm{font-size:11px;color:var(--ft-txt3,rgba(255,255,255,.45));
+  background:rgba(255,255,255,.07);border-radius:6px;padding:2px 6px}
+.tam-item-actions{display:flex;align-items:center;gap:8px}
+.tam-toggle{gap:6px}
+.tam-padrao-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;
+  background:rgba(255,255,255,.08);color:var(--ft-txt3,rgba(255,255,255,.45))}
+.tam-del{background:none;border:none;font-size:15px;cursor:pointer;padding:4px;
+  -webkit-tap-highlight-color:transparent;opacity:.6;transition:opacity .15s}
+.tam-del:active{opacity:1}
+.tam-dica{font-size:11px;color:var(--ft-txt3,rgba(255,255,255,.4));line-height:1.5;
+  padding:8px 4px;text-align:center}
+
+/* ════════════════════════════════════════════════════════
+   6. MODO NEGÓCIO (ft-negocio.js)
+════════════════════════════════════════════════════════ */
+#ft-sec-neg{padding:0 16px}
+.neg-root{display:flex;flex-direction:column;gap:16px;padding:4px 0 32px}
+.neg-hero{display:flex;align-items:center;gap:12px;padding:16px 4px 8px}
+.neg-hero-ico{font-size:32px;line-height:1}
+.neg-hero-title{font-size:20px;font-weight:800;color:var(--ft-txt,#fff);margin:0;letter-spacing:-.3px}
+.neg-hero-sub{font-size:13px;color:var(--ft-txt3,rgba(255,255,255,.5));margin:2px 0 0}
+.neg-card{background:var(--v2-surf);border:1px solid var(--v2-border);border-radius:var(--v2-r);overflow:hidden}
+.neg-card-hd{display:flex;align-items:center;gap:8px;padding:12px 16px;
+  border-bottom:1px solid var(--v2-border);font-size:13px;font-weight:700;color:var(--ft-txt,#fff)}
+.neg-form{padding:16px;display:flex;flex-direction:column;gap:12px}
+.neg-field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.neg-field{display:flex;flex-direction:column;gap:5px}
+.neg-label{font-size:11px;font-weight:600;color:var(--ft-txt3,rgba(255,255,255,.5));
+  text-transform:uppercase;letter-spacing:.5px}
+.neg-hint{font-size:10px;color:var(--ft-txt3,rgba(255,255,255,.35));line-height:1.4}
+.neg-input{background:rgba(255,255,255,.07);border:1px solid var(--v2-border);
+  border-radius:var(--v2-rs);color:var(--ft-txt,#fff);font-size:15px;font-weight:500;
+  padding:10px 12px;width:100%;box-sizing:border-box;-webkit-appearance:none;
+  outline:none;transition:border-color .15s;font-family:inherit}
+.neg-input:focus{border-color:var(--v2-blue);background:rgba(10,132,255,.07)}
+.neg-input-pre-wrap,.neg-input-suf-wrap{display:flex;align-items:center;
+  background:rgba(255,255,255,.07);border:1px solid var(--v2-border);
+  border-radius:var(--v2-rs);overflow:hidden;transition:border-color .15s}
+.neg-input-pre-wrap:focus-within,.neg-input-suf-wrap:focus-within{
+  border-color:var(--v2-blue);background:rgba(10,132,255,.07)}
+.neg-input-pre,.neg-input-suf{font-size:13px;font-weight:600;
+  color:var(--ft-txt3,rgba(255,255,255,.45));padding:0 8px;white-space:nowrap;flex-shrink:0}
+.neg-input.has-pre,.neg-input.has-suf{background:transparent;border:none;border-radius:0;
+  flex:1;min-width:0;padding-left:4px}
+.neg-input.has-pre:focus,.neg-input.has-suf:focus{outline:none}
+.neg-btn-calc{display:flex;align-items:center;justify-content:center;gap:8px;
+  background:var(--ft-acc,#FF9500);color:#000;border:none;border-radius:14px;
+  padding:14px 20px;font-size:15px;font-weight:700;cursor:pointer;width:100%;
+  -webkit-tap-highlight-color:transparent;transition:opacity .15s,transform .12s;font-family:inherit;margin-top:4px}
+.neg-btn-calc:active{opacity:.8;transform:scale(.98)}
+.neg-hidden{display:none!important}
+.neg-results{display:flex;flex-direction:column;gap:12px;animation:v2-in .3s ease}
+.neg-result-card{background:var(--v2-surf);border:1px solid var(--v2-border);
+  border-radius:var(--v2-r);overflow:hidden}
+.neg-result-hd{display:flex;align-items:center;gap:8px;padding:11px 16px;
+  border-bottom:1px solid var(--v2-border);font-size:13px;font-weight:700;color:var(--ft-txt,#fff)}
+.neg-big-vals{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.neg-big{display:flex;flex-direction:column;align-items:center;padding:16px 12px;gap:4px;position:relative}
+.neg-big+.neg-big::before{content:'';position:absolute;left:0;top:20%;height:60%;width:1px;background:var(--v2-border)}
+.neg-big-val{font-size:22px;font-weight:800;color:var(--ft-txt,#fff);letter-spacing:-.5px;line-height:1}
+.neg-big-val.amber{color:var(--v2-amber)} .neg-big-val.green{color:var(--v2-green)}
+.neg-big-lbl{font-size:11px;color:var(--ft-txt3,rgba(255,255,255,.45));text-align:center}
+.neg-gauge-wrap{padding:0 16px 14px}
+.neg-gauge-track{background:rgba(255,255,255,.08);border-radius:99px;height:6px;overflow:hidden;margin-bottom:6px}
+.neg-gauge-fill{height:100%;border-radius:99px;background:var(--v2-green);transition:width .5s cubic-bezier(.25,.8,.25,1)}
+.neg-gauge-lbl{font-size:11px;color:var(--ft-txt3,rgba(255,255,255,.45));text-align:center;line-height:1.4}
+.neg-stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  background:var(--v2-surf);border:1px solid var(--v2-border);border-radius:var(--v2-r);overflow:hidden}
+.neg-stat{display:flex;flex-direction:column;align-items:center;padding:14px 8px;gap:4px;position:relative}
+.neg-stat+.neg-stat::before{content:'';position:absolute;left:0;top:20%;height:60%;width:1px;background:var(--v2-border)}
+.neg-stat-val{font-size:14px;font-weight:700;color:var(--ft-txt,#fff);line-height:1}
+.neg-stat-val.green{color:var(--v2-green)}
+.neg-stat-lbl{font-size:10px;color:var(--ft-txt3,rgba(255,255,255,.45));text-align:center;line-height:1.3}
+.neg-cenarios .neg-result-hd{border-bottom:none}
+.neg-cenario-row{padding:10px 16px;border-top:1px solid var(--v2-border);
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.neg-cen-label{font-size:12px;font-weight:700;flex:0 0 auto;min-width:120px}
+.neg-cen-vals{display:flex;gap:12px;flex:1;flex-wrap:wrap;font-size:12px;color:var(--ft-txt,#fff);align-items:center}
+.neg-cen-lucro{font-weight:700}
+.neg-btn-salvar{display:flex;align-items:center;justify-content:center;gap:8px;
+  background:rgba(255,255,255,.06);border:1px solid var(--v2-border);color:var(--ft-txt,#fff);
+  border-radius:14px;padding:12px 20px;font-size:14px;font-weight:600;cursor:pointer;
+  width:100%;font-family:inherit;-webkit-tap-highlight-color:transparent;transition:background .15s}
+.neg-btn-salvar:active{background:rgba(255,255,255,.12)}
+
+/* ════════════════════════════════════════════════════════
+   7. PAINEL DE IA (ft-ia.js)
+════════════════════════════════════════════════════════ */
+.ia-panel{background:var(--v2-surf);border:1px solid var(--v2-border);
+  border-radius:var(--v2-r);overflow:hidden;margin:12px 0 16px;animation:v2-in .35s ease}
+.ia-header{display:flex;align-items:center;justify-content:space-between;
+  padding:14px 16px;border-bottom:1px solid var(--v2-border);gap:12px}
+.ia-header-left{display:flex;align-items:center;gap:10px}
+.ia-header-ico{font-size:22px;line-height:1}
+.ia-header-title{font-size:14px;font-weight:700;color:var(--ft-txt,#fff);line-height:1.2}
+.ia-header-sub{font-size:12px;color:var(--ft-txt3,rgba(255,255,255,.45));margin-top:1px}
+.ia-badge{font-size:11px;font-weight:700;padding:4px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+.ia-badge-alerta{background:rgba(255,69,58,.18);color:var(--v2-red)}
+.ia-badge-ok{background:rgba(48,209,88,.18);color:var(--v2-green)}
+.ia-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-bottom:1px solid var(--v2-border)}
+.ia-kpi{display:flex;flex-direction:column;align-items:center;padding:12px 8px;gap:3px;position:relative}
+.ia-kpi+.ia-kpi::before{content:'';position:absolute;left:0;top:20%;height:60%;width:1px;background:var(--v2-border)}
+.ia-kpi-val{font-size:16px;font-weight:700;color:var(--ft-txt,#fff);line-height:1}
+.ia-kpi-lbl{font-size:10px;color:var(--ft-txt3,rgba(255,255,255,.45));text-transform:uppercase;letter-spacing:.4px}
+.ia-insights-list{display:flex;flex-direction:column;gap:1px}
+.ia-insight{padding:12px 16px;border-bottom:1px solid var(--v2-border)}
+.ia-insight:last-child{border-bottom:none}
+.ia-insight-top{display:flex;align-items:flex-start;gap:10px}
+.ia-insight-emoji{font-size:18px;line-height:1.3;flex-shrink:0}
+.ia-insight-msg{font-size:13px;font-weight:600;color:var(--ft-txt,#fff);line-height:1.4}
+.ia-insight-acao{font-size:12px;color:var(--ft-txt3,rgba(255,255,255,.5));line-height:1.4;margin-top:3px}
+.ia-ok-msg{display:flex;align-items:center;justify-content:center;gap:8px;padding:18px 16px;
+  font-size:14px;font-weight:600;color:var(--v2-green)}
+.ia-dica{display:flex;align-items:flex-start;gap:8px;padding:12px 16px;
+  border-top:1px solid var(--v2-border);font-size:12px;color:var(--ft-txt3,rgba(255,255,255,.5));line-height:1.5}
+
+/* ════════════════════════════════════════════════════════
+   8. VARIAÇÕES (ft-variacoes.js)
+════════════════════════════════════════════════════════ */
+.var-panel{background:var(--v2-surf);border:1px solid var(--v2-border);
+  border-radius:var(--v2-r);overflow:hidden;margin:12px 0;animation:v2-in .3s ease}
+.var-header{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--v2-border)}
+.var-header-title{font-size:13px;font-weight:700;color:var(--ft-txt,#fff)}
+.var-header-sub{font-size:11px;color:var(--ft-txt3,rgba(255,255,255,.45));margin-top:1px}
+.var-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.var-table{width:100%;border-collapse:collapse;font-size:12px}
+.var-table thead th{padding:8px 12px;font-size:10px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.5px;color:var(--ft-txt3,rgba(255,255,255,.45));text-align:right;
+  border-bottom:1px solid var(--v2-border);white-space:nowrap}
+.var-table thead th:first-child{text-align:left}
+.var-table tbody td{padding:10px 12px;color:var(--ft-txt,#fff);text-align:right;
+  border-bottom:1px solid rgba(255,255,255,.04);font-size:13px}
+.var-table tbody td:first-child{text-align:left}
+.var-table tbody tr:last-child td{border-bottom:none}
+.var-row-active{background:rgba(10,132,255,.07)}
+.var-tam-pill{display:inline-block;background:var(--v2-blue);color:#fff;font-size:10px;
+  font-weight:800;padding:2px 7px;border-radius:6px;letter-spacing:.5px}
+.var-dica{padding:10px 16px;font-size:11px;color:var(--ft-txt3,rgba(255,255,255,.4));
+  border-top:1px solid var(--v2-border);line-height:1.5}
+.var-badge{display:inline-flex;align-items:center;gap:3px;font-size:11px;padding:3px 7px;
+  border-radius:7px;background:rgba(255,255,255,.07);color:var(--ft-txt,#fff);
+  border:1px solid var(--v2-border);white-space:nowrap}
+
+/* ════════════════════════════════════════════════════════
+   9. NAVEGAÇÃO — abas novas (Cardápio, Tamanhos)
+════════════════════════════════════════════════════════ */
+#ft-nav{display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:0}
+#ft-nav::-webkit-scrollbar{display:none}
+.ft-nav-btn{min-width:52px;flex:0 0 auto;position:relative}
+.ft-nav-btn[data-tab="neg"].active{color:var(--v2-green)}
+.ft-nav-btn[data-tab="neg"].active svg{stroke:var(--v2-green)}
+.ft-nav-btn[data-tab="car"].active{color:var(--v2-blue)}
+.ft-nav-btn[data-tab="car"].active svg{stroke:var(--v2-blue)}
+.ft-nav-btn[data-tab="tam"].active{color:var(--v2-purple)}
+.ft-nav-btn[data-tab="tam"].active svg{stroke:var(--v2-purple)}
+.ft-nav-badge{position:absolute;top:4px;right:6px;background:var(--v2-red);color:#fff;
+  font-size:9px;font-weight:800;min-width:15px;height:15px;border-radius:99px;
+  display:flex;align-items:center;justify-content:center;padding:0 3px;line-height:1;pointer-events:none}
+
+/* ════════════════════════════════════════════════════════
+   10. LIGHT MODE
+════════════════════════════════════════════════════════ */
+.light-mode .ia-panel,.light-mode .neg-card,.light-mode .neg-result-card,
+.light-mode .neg-stats-grid,.light-mode .var-panel,.light-mode .card-item,
+.light-mode .tam-lista,.light-mode .card-table-wrap{background:rgba(0,0,0,.03)}
+.light-mode .neg-input,.light-mode .neg-input-pre-wrap,.light-mode .neg-input-suf-wrap{
+  background:rgba(0,0,0,.04);color:var(--ft-txt,#000)}
+.light-mode .ft-var-tab,.light-mode .ft-var-tab.active{color:#000}
+
+/* ══════════════════════════════════════════════════════════════════
+   CORREÇÕES DE AUDITORIA — classes ausentes detectadas
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ft-ing-inline-qtd — já usada em ft-receitas v3.2 (herda do ft-style.css)
+   Garante largura específica mesmo sem o original */
+.ft-ing-inline-qtd {
+  width: 64px !important;
+  text-align: right;
+  padding: 4px 6px !important;
+  font-size: 13px !important;
+}
+
+/* tam-table-hdr — header da tabela de tamanhos */
+.tam-table-hdr {
+  display: grid;
+  grid-template-columns: 1fr 60px 70px 70px 80px;
+  gap: 8px;
+  padding: 6px 12px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--ft-txt3, rgba(255,255,255,.4));
+  border-bottom: 1px solid var(--v2-border);
+  margin-top: 8px;
+}
+
+/* tam-item-pill — badge colorido com o nome do tamanho */
+.tam-item-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ft-acc, #FF9500);
+  color: #000;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 8px;
+  letter-spacing: .3px;
+}
+.tam-item-pill-off {
+  background: rgba(255,255,255,.12);
+  color: var(--ft-txt3, rgba(255,255,255,.4));
+}
+
+/* tam-item-fator — exibe o multiplicador ex: "1.6×" */
+.tam-item-fator {
+  font-size: 13px;
+  color: var(--ft-txt, #fff);
+  font-weight: 500;
+  text-align: center;
+}
+
+/* tam-item-status — "Ativo" / "Inativo" */
+.tam-item-status {
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--ft-txt3, rgba(255,255,255,.4));
+}
+.tam-item-status.active {
+  color: var(--v2-green);
+}
+
+/* tam-tog-btn — botão circular de ativar/desativar tamanho */
+.tam-tog-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--v2-border);
+  background: transparent;
+  color: var(--ft-txt, #fff);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background .15s;
+}
+.tam-tog-btn:active { background: rgba(255,255,255,.08); }
+
+/* tam-hint — nota explicativa sobre fatores */
+.tam-hint {
+  padding: 12px 14px;
+  font-size: 12px;
+  color: var(--ft-txt3, rgba(255,255,255,.4));
+  background: rgba(0,0,0,.1);
+  border-radius: 10px;
+  margin-top: 12px;
+  line-height: 1.5;
+  border: 1px solid var(--v2-border);
+}
+.light-mode .tam-hint { background: rgba(0,0,0,.03); }
+
+/* ── Light mode overrides complementares ─────────────────────── */
+.light-mode .ft-var-section,
+.light-mode .ft-var-totais {
+  background: rgba(0,0,0,.03);
+}
+.light-mode .ft-var-preco-card {
+  background: rgba(0,0,0,.02);
+}
+.light-mode .tam-item {
+  background: rgba(0,0,0,.02);
+  border-color: rgba(0,0,0,.07);
+}
+.light-mode .ft-var-tabs {
+  background: rgba(0,0,0,.04);
+}

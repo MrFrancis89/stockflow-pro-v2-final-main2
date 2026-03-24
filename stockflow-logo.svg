@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 120" width="480" height="120">
+  <defs>
+    <linearGradient id="flowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2979FF"/>
+      <stop offset="100%" stop-color="#00E5FF"/>
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0D1B2A"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <clipPath id="iconClip">
+      <rect x="0" y="0" width="120" height="120" rx="28"/>
+    </clipPath>
+  </defs>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- ICON BLOCK                                      -->
+  <!-- ═══════════════════════════════════════════════ -->
+
+  <!-- Icon background -->
+  <rect x="0" y="0" width="120" height="120" rx="28" fill="url(#bgGrad)"/>
+  <!-- Subtle inner border -->
+  <rect x="0.5" y="0.5" width="119" height="119" rx="27.5" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+  <!-- S-flow path: single continuous line forming an abstract S -->
+  <!-- The line enters from top-right, curves down-left (upper bowl),
+       crosses the center, curves down-right (lower bowl), exits bottom-left -->
+  <path
+    d="M 82 28
+       C 82 28, 88 28, 88 38
+       C 88 50, 72 52, 60 52
+       C 48 52, 32 54, 32 66
+       C 32 78, 38 82, 50 82
+       C 58 82, 88 82, 88 82"
+    fill="none"
+    stroke="url(#flowGrad)"
+    stroke-width="7"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    filter="url(#glow)"
+  />
+
+  <!-- Dot at the end — the "item" being tracked -->
+  <circle cx="88" cy="82" r="5.5" fill="#00E5FF" filter="url(#glow)"/>
+  <!-- Entry cap highlight -->
+  <circle cx="82" cy="28" r="4" fill="#2979FF" opacity="0.7"/>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- WORDMARK                                        -->
+  <!-- ═══════════════════════════════════════════════ -->
+
+  <!-- "StockFlow" -->
+  <text
+    x="140"
+    y="66"
+    font-family="'SF Pro Display', 'Helvetica Neue', Helvetica, Arial, sans-serif"
+    font-size="34"
+    font-weight="700"
+    letter-spacing="-1"
+    fill="#F0F4FF"
+  >StockFlow</text>
+
+  <!-- "PRO" badge -->
+  <rect x="141" y="76" width="46" height="16" rx="5" fill="url(#flowGrad)" opacity="0.15"/>
+  <text
+    x="164"
+    y="88"
+    font-family="'SF Pro Display', 'Helvetica Neue', Helvetica, Arial, sans-serif"
+    font-size="10"
+    font-weight="800"
+    letter-spacing="2"
+    fill="url(#flowGrad)"
+    text-anchor="middle"
+  >PRO</text>
+</svg>

@@ -1,0 +1,289 @@
+/* pwa-install.css — StockFlow Pro v9.9.44
+   Correções: safe-area-inset-bottom (#12), blur(0px) removido (#13),
+   .pwa-ios-dica órfã removida (#9), :disabled estilo (#18)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Overlay de fundo ─────────────────────────────────────────── */
+#pwa-install-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    /* FIX #13: blur(0px) removido — forçava camada de compositing sem efeito */
+    /* FIX BUG M: 20001 > ai-chat-modal (20000). O login overlay (99999) já fechou
+       antes de tentarExibirModalInstalacao() ser chamada, então não há conflito. */
+    z-index: 20001;
+    transition: background 0.35s ease;
+    pointer-events: none;
+}
+#pwa-install-overlay.pwa-overlay--visivel {
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    pointer-events: auto;
+}
+
+/* ── Modal ────────────────────────────────────────────────────── */
+#pwa-install-modal {
+    position: fixed;
+    bottom: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(420px, calc(100vw - 24px));
+    border-radius: 24px 24px 18px 18px;
+    overflow: hidden;
+    z-index: 20002;
+    box-shadow: 0 -4px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255,255,255,0.06);
+    /* FIX BUG L: spring suavizado — valor original causava overshoot acima do viewport */
+    transition: bottom 0.38s cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+#pwa-install-modal.pwa-modal--visivel {
+    /* FIX #12: posiciona acima do home indicator (iPhone X+).
+       env(safe-area-inset-bottom) ~34px no iPhone X — max() garante mínimo de 16px.
+       Sem padding-bottom extra: evita espaço duplo dentro do modal. */
+    bottom: max(16px, env(safe-area-inset-bottom, 16px));
+}
+
+/* ── Topo com gradiente do app ────────────────────────────────── */
+.pwa-modal-topo {
+    background: linear-gradient(135deg, #1a237e 0%, #283593 40%, #1565c0 70%, #0277bd 100%);
+    padding: 24px 24px 28px;
+    text-align: center;
+    position: relative;
+}
+
+.pwa-btn-fechar {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s;
+    -webkit-tap-highlight-color: transparent;
+}
+.pwa-btn-fechar:hover,
+.pwa-btn-fechar:active { background: rgba(255,255,255,0.25); }
+
+.pwa-modal-icone {
+    display: inline-flex;
+    padding: 10px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 22px;
+    margin-bottom: 16px;
+    border: 1.5px solid rgba(255,255,255,0.2);
+}
+.pwa-modal-icone svg { display: block; border-radius: 16px; }
+
+.pwa-modal-titulo {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    letter-spacing: -0.3px;
+    line-height: 1.3;
+}
+.pwa-modal-sub {
+    color: rgba(255,255,255,0.75);
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ── Corpo ────────────────────────────────────────────────────── */
+.pwa-modal-corpo {
+    background: var(--card, #1a1a1a);
+    padding: 24px 20px 20px;
+}
+
+/* ── Lista de benefícios ──────────────────────────────────────── */
+.pwa-beneficios {
+    list-style: none;
+    margin: 0 0 24px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.pwa-beneficio {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 14px;
+    color: var(--text, #e0e0e0);
+    line-height: 1.4;
+}
+.pwa-beneficio-ico {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: rgba(41, 121, 255, 0.12);
+    border: 1px solid rgba(41, 121, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--accent-primary, #0A84FF);
+}
+
+/* ── Passos iOS ───────────────────────────────────────────────── */
+.pwa-passos-ios {
+    list-style: none;
+    margin: 0 0 20px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.pwa-passo {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--text, #e0e0e0);
+    line-height: 1.5;
+}
+.pwa-passo-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1565c0, #0277bd);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+/* FIX #9: .pwa-ios-dica removida — elemento nunca foi criado no JS */
+
+/* ── Botão principal ──────────────────────────────────────────── */
+.pwa-btn-instalar {
+    width: 100%;
+    padding: 15px 20px;
+    border-radius: 14px;
+    border: none;
+    background: linear-gradient(135deg, #1565c0 0%, #0277bd 100%);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    transition: transform 0.12s, opacity 0.12s;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 4px 16px rgba(21, 101, 192, 0.4);
+}
+.pwa-btn-instalar:active:not(:disabled) { transform: scale(0.97); opacity: 0.92; }
+.pwa-btn-instalar--ios { background: linear-gradient(135deg, #283593, #1565c0); }
+
+/* FIX #18: estilo visual para estado disabled durante await userChoice */
+.pwa-btn-instalar:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.pwa-btn-agora-nao {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: none;
+    color: var(--text-muted, #888);
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+}
+.pwa-btn-agora-nao:hover,
+.pwa-btn-agora-nao:active { color: var(--text, #ccc); }
+
+/* ── Ícone Compartilhar inline (passo 1 iOS) ──────────────────── */
+.pwa-share-ico-wrap {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 3px;
+    padding: 2px 5px;
+    border-radius: 6px;
+    background: rgba(41, 121, 255, 0.14);
+    border: 1px solid rgba(41, 121, 255, 0.25);
+    color: var(--accent-primary, #0A84FF);
+    line-height: 1;
+}
+.pwa-share-svg {
+    display: block;
+}
+/* Texto do passo: herda cor do <li> pai (.pwa-passo) mas precisa
+   de regra explícita para que .light-mode a alcance diretamente */
+.pwa-passo-txt {
+    color: inherit;
+    line-height: 1.5;
+}
+
+/* ── Variante: iOS Chrome/Firefox → "Abra no Safari" ─────────── */
+.pwa-aviso-outros {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+    padding: 4px 0 20px;
+}
+.pwa-aviso-ico {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(41, 121, 255, 0.10);
+    border: 1.5px solid rgba(41, 121, 255, 0.22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-primary, #0A84FF);
+    flex-shrink: 0;
+}
+.pwa-aviso-txt {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text, #e0e0e0);
+    margin: 0;
+    line-height: 1.45;
+}
+.pwa-aviso-dica {
+    font-size: 13px;
+    color: var(--text-muted, #888);
+    margin: 0;
+    line-height: 1.55;
+}
+
+/* ── Tema claro ───────────────────────────────────────────────── */
+.light-mode .pwa-modal-corpo          { background: #ffffff; }
+.light-mode .pwa-beneficio,
+.light-mode .pwa-passo,
+.light-mode .pwa-passo-txt            { color: #333; }
+.light-mode .pwa-beneficio-ico        { background: rgba(21,101,192,0.08); border-color: rgba(21,101,192,0.15); color: #1565c0; }
+.light-mode .pwa-btn-agora-nao        { color: #888; }
+.light-mode .pwa-btn-agora-nao:hover  { color: #333; }
+.light-mode .pwa-aviso-txt            { color: #222; }
+.light-mode .pwa-aviso-dica           { color: #666; }
+.light-mode .pwa-share-ico-wrap       { background: rgba(21,101,192,0.08); border-color: rgba(21,101,192,0.2); color: #1565c0; }
+
+/* ── Responsividade ───────────────────────────────────────────── */
+@media (max-width: 380px) {
+    .pwa-modal-titulo { font-size: 19px; }
+    .pwa-modal-corpo  { padding: 20px 16px 16px; }
+}

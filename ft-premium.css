@@ -1,0 +1,784 @@
+/* ══════════════════════════════════════════════════════════════════
+   ft-premium.css — StockFlow Pro V2 · Sistema Visual Premium
+   Web Designer Sênior: cada decisão tem intenção explícita.
+   Carregado após ft-style.css + ft-v2-style.css.
+   Zero quebras — apenas refinamento de tudo que já existe.
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ────────────────────────────────────────────────────────────────
+   VARIÁVEIS PREMIUM — extensão do sistema existente
+───────────────────────────────────────────────────────────────── */
+:root {
+  /* Easing com física Apple */
+  --ease-spring:    cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-snap:      cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-smooth:    cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-decel:     cubic-bezier(0, 0, 0.2, 1);
+
+  /* Durations canônicas */
+  --dur-press:   80ms;
+  --dur-quick:  160ms;
+  --dur-normal: 240ms;
+  --dur-enter:  320ms;
+
+  /* Elevações */
+  --shadow-card: 0 1px 3px rgba(0,0,0,.18), 0 1px 1px rgba(0,0,0,.1);
+  --shadow-float:0 4px 16px rgba(0,0,0,.24), 0 2px 4px rgba(0,0,0,.12);
+  --shadow-modal:0 8px 32px rgba(0,0,0,.36), 0 4px 8px rgba(0,0,0,.2);
+
+  /* Bordas finas */
+  --border-fine: 0.5px solid;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   1. DRAG HANDLE — pill indicador do modal
+   Injetado via ft-ui.js como primeiro filho do modal-box
+───────────────────────────────────────────────────────────────── */
+.ft-modal-handle {
+  width: 36px;
+  height: 5px;
+  border-radius: 99px;
+  background: rgba(255,255,255,.22);
+  margin: 10px auto 0;
+  flex-shrink: 0;
+  pointer-events: none;
+  /* Não scrollável — fica sempre visível no topo do sheet */
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+body.theme-arctic .ft-modal-handle,
+body.light-mode   .ft-modal-handle {
+  background: rgba(0,0,0,.14);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   2. HEADER DO MODAL — recua padding para dar respiro ao handle
+───────────────────────────────────────────────────────────────── */
+.ft-mhd {
+  padding: 8px 16px 14px;
+  background: transparent;
+  backdrop-filter: none;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   3. NAV BTN — indicador ativo + spring press
+───────────────────────────────────────────────────────────────── */
+.ft-nav-btn {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition:
+    color     var(--dur-quick) var(--ease-snap),
+    transform var(--dur-press) var(--ease-spring);
+  position: relative;
+  will-change: transform;
+}
+.ft-nav-btn:active {
+  transform: scale(0.85);
+}
+
+/* Linha indicadora acima do ícone ativo */
+.ft-nav-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 18px;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: currentColor;
+  transition: transform var(--dur-quick) var(--ease-spring),
+              opacity  var(--dur-quick);
+  opacity: 0;
+}
+.ft-nav-btn.active::after {
+  transform: translateX(-50%) scaleX(1);
+  opacity: 1;
+}
+.ft-nav-btn.active {
+  font-weight: 600;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   4. BOTÕES — spring press + glow no primário
+───────────────────────────────────────────────────────────────── */
+.ft-btn {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition:
+    transform  var(--dur-press)  var(--ease-spring),
+    opacity    var(--dur-press),
+    box-shadow var(--dur-quick)  var(--ease-snap);
+  will-change: transform;
+}
+.ft-btn:active {
+  transform: scale(0.95);
+  opacity: .87;
+}
+.ft-btn-primary {
+  box-shadow: 0 2px 12px rgba(0,0,0,.2);
+}
+.ft-btn-primary:active {
+  box-shadow: 0 1px 4px rgba(0,0,0,.15),
+              0 0 0 3px var(--ft-acc2);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   5. LIST ITEMS — press com scale + feedback físico
+───────────────────────────────────────────────────────────────── */
+.ft-list-item {
+  transition:
+    background var(--dur-press),
+    transform  var(--dur-press) var(--ease-spring);
+  border-bottom-width: 0.5px;
+  will-change: transform;
+}
+.ft-list-item:active {
+  transform: scale(0.985);
+  background: var(--ft-glass);
+}
+.ft-rec-main {
+  transition:
+    background var(--dur-press),
+    transform  var(--dur-press) var(--ease-spring);
+  will-change: transform;
+}
+.ft-rec-main:active {
+  background: var(--ft-glass);
+  transform: scale(0.988);
+}
+
+/* Bordas finas nas listas */
+.ft-list {
+  border-width: 0.5px;
+  box-shadow: var(--shadow-card);
+}
+.ft-rec-row {
+  border-bottom-width: 0.5px;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   6. INPUTS — focus ring (glow)
+───────────────────────────────────────────────────────────────── */
+.ft-input {
+  border-width: 0.5px;
+  transition:
+    border-color var(--dur-quick) var(--ease-snap),
+    box-shadow   var(--dur-quick) var(--ease-snap),
+    background   var(--dur-quick);
+  font-variant-numeric: tabular-nums;
+}
+.ft-input:focus {
+  border-color: var(--ft-acc);
+  box-shadow: 0 0 0 3.5px var(--ft-acc2);
+  outline: none;
+}
+
+/* Prefix/suffix seamless com focus ring no wrapper */
+.ft-input-pre-wrap,
+.ft-input-suf-wrap {
+  border-width: 0.5px;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: box-shadow var(--dur-quick) var(--ease-snap);
+}
+.ft-input-pre-wrap:focus-within,
+.ft-input-suf-wrap:focus-within {
+  box-shadow: 0 0 0 3.5px var(--ft-acc2);
+  border-color: var(--ft-acc);
+}
+/* Remove borda/sombra individual dos inputs dentro do wrapper */
+.ft-input-pre-wrap .ft-input,
+.ft-input-suf-wrap .ft-input {
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+.ft-input-pre-wrap .ft-input:focus,
+.ft-input-suf-wrap .ft-input:focus {
+  box-shadow: none;
+  border: none;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   7. FAB — breathing + spring press
+───────────────────────────────────────────────────────────────── */
+#ft-fab {
+  transition:
+    transform  var(--dur-quick) var(--ease-spring),
+    box-shadow var(--dur-normal) var(--ease-smooth);
+  animation: ft-fab-breath 4s ease-in-out infinite;
+  will-change: transform, box-shadow;
+}
+@keyframes ft-fab-breath {
+  0%,100% { box-shadow: 0 4px 18px rgba(255,149,0,.50); }
+  50%      { box-shadow: 0 6px 28px rgba(255,149,0,.72),
+                         0 0 0 6px rgba(255,149,0,.08); }
+}
+body.theme-midnight #ft-fab { animation: ft-fab-breath-blue 4s ease-in-out infinite; }
+@keyframes ft-fab-breath-blue {
+  0%,100% { box-shadow: 0 4px 18px rgba(10,132,255,.50); }
+  50%      { box-shadow: 0 6px 28px rgba(10,132,255,.72),
+                         0 0 0 6px rgba(10,132,255,.08); }
+}
+body.theme-forest #ft-fab { animation: ft-fab-breath-green 4s ease-in-out infinite; }
+@keyframes ft-fab-breath-green {
+  0%,100% { box-shadow: 0 4px 18px rgba(48,209,88,.45); }
+  50%      { box-shadow: 0 6px 28px rgba(48,209,88,.65),
+                         0 0 0 6px rgba(48,209,88,.08); }
+}
+#ft-fab:active {
+  transform: scale(0.88);
+  animation: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,.3);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   8. SECTION ENTER — animação premium com scale
+───────────────────────────────────────────────────────────────── */
+.ft-section {
+  animation: ft-section-in var(--dur-enter) var(--ease-decel);
+}
+@keyframes ft-section-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px) scale(0.997);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ────────────────────────────────────────────────────────────────
+   9. KPI CARDS — redesign com hierarquia e depth
+───────────────────────────────────────────────────────────────── */
+.ft-kpis {
+  gap: 8px;
+  margin: 12px 14px;
+}
+
+.ft-kpi {
+  text-align: left;
+  padding: 16px 14px 14px;
+  border-width: 0.5px;
+  box-shadow: var(--shadow-card);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--dur-press) var(--ease-spring);
+}
+.ft-kpi:active { transform: scale(0.97); }
+
+/* Barra de cor no topo */
+.ft-kpi::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: 16px 16px 0 0;
+  background: var(--ft-border);
+}
+.ft-kpi-hi::before     { background: var(--ft-acc); }
+.ft-kpi-danger::before { background: var(--ft-red); }
+
+.ft-kpi-hi {
+  border-color: rgba(255,149,0,.2);
+  background: linear-gradient(145deg,
+    rgba(255,149,0,.08) 0%,
+    transparent 70%);
+}
+body.theme-midnight .ft-kpi-hi {
+  border-color: rgba(10,132,255,.2);
+  background: linear-gradient(145deg,
+    rgba(10,132,255,.09) 0%,
+    transparent 70%);
+}
+body.theme-forest .ft-kpi-hi {
+  border-color: rgba(48,209,88,.2);
+  background: linear-gradient(145deg,
+    rgba(48,209,88,.08) 0%,
+    transparent 70%);
+}
+
+.ft-kpi-ico { margin-bottom: 0; }
+.ft-kpi-ico svg { width: 18px; height: 18px; }
+
+.ft-kpi-val {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  margin-top: 2px;
+}
+
+.ft-kpi-lbl {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   10. TOGGLE SWITCH — spring + shadow no thumb
+───────────────────────────────────────────────────────────────── */
+.ft-toggle-switch::after {
+  width: 22px;
+  height: 22px;
+  top: 2px;
+  left: 2px;
+  box-shadow:
+    0 2px 6px rgba(0,0,0,.3),
+    0 0.5px 1px rgba(0,0,0,.2);
+  transition: transform var(--dur-quick) var(--ease-spring);
+}
+.ft-toggle-cb:checked + .ft-toggle-switch::after {
+  transform: translateX(18px);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   11. SEARCH BAR — sticky blur
+───────────────────────────────────────────────────────────────── */
+.ft-search-wrap {
+  background: rgba(0,0,0,.35);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  box-shadow: 0 1px 0 var(--ft-border2);
+}
+body.theme-arctic .ft-search-wrap,
+body.light-mode   .ft-search-wrap {
+  background: rgba(240,240,245,.92);
+}
+body.theme-forest .ft-search-wrap {
+  background: rgba(7,20,16,.75);
+}
+
+.ft-search {
+  border-width: 0.5px;
+  transition: border-color var(--dur-quick), box-shadow var(--dur-quick);
+}
+.ft-search:focus {
+  box-shadow: 0 0 0 3px var(--ft-acc2);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   12. LOADING — spring animation no ícone
+───────────────────────────────────────────────────────────────── */
+.ft-loading-icon {
+  font-size: 52px;
+  animation: ft-loading-beat 1.4s var(--ease-spring) infinite;
+}
+@keyframes ft-loading-beat {
+  0%,100% { transform: scale(1) rotate(0deg); }
+  30%     { transform: scale(1.08) rotate(-6deg); }
+  60%     { transform: scale(0.95) rotate(5deg); }
+}
+.ft-loading-text {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--ft-txt3);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   13. TOAST — glassmorphism
+───────────────────────────────────────────────────────────────── */
+.ft-toast-item {
+  background: rgba(28,28,30,.90);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-width: 0.5px;
+  border-radius: 14px;
+  box-shadow: var(--shadow-float);
+  font-size: 13px;
+  font-weight: 500;
+  transition:
+    opacity   var(--dur-normal) var(--ease-decel),
+    transform var(--dur-normal) var(--ease-spring);
+}
+.ft-toast-item:not(.on) { transform: translateY(8px) scale(0.93); }
+.ft-toast-item.on       { transform: translateY(0)   scale(1); }
+
+body.theme-arctic .ft-toast-item,
+body.light-mode   .ft-toast-item {
+  background: rgba(248,248,252,.92);
+  color: #1c1c1e;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   14. RANKING — barras gradiente + press
+───────────────────────────────────────────────────────────────── */
+.ft-rank-item {
+  border-width: 0.5px;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--dur-press) var(--ease-spring);
+}
+.ft-rank-item:active { transform: scale(0.985); }
+
+.ft-rank-bar {
+  background: linear-gradient(90deg,
+    var(--ft-acc) 0%,
+    rgba(255,149,0,.45) 100%);
+  transition: width 600ms var(--ease-decel);
+}
+body.theme-midnight .ft-rank-bar { background: linear-gradient(90deg, #0A84FF, rgba(10,132,255,.4)); }
+body.theme-forest   .ft-rank-bar { background: linear-gradient(90deg, #30D158, rgba(48,209,88,.4)); }
+
+.ft-rank-pos {
+  font-size: 18px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  min-width: 30px;
+}
+.ft-rank-lucro {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   15. CARDS DE DESTAQUE — shadow + press
+───────────────────────────────────────────────────────────────── */
+.ft-dest {
+  border-width: 0.5px;
+  box-shadow: var(--shadow-card);
+  border-radius: 16px;
+  transition: transform var(--dur-press) var(--ease-spring);
+}
+.ft-dest:active { transform: scale(0.97); }
+
+/* ────────────────────────────────────────────────────────────────
+   16. ÍCONES DE ITEM — gradient background
+───────────────────────────────────────────────────────────────── */
+.ft-ico-ing {
+  background: linear-gradient(135deg,
+    rgba(255,149,0,.2) 0%, rgba(255,149,0,.08) 100%);
+}
+.ft-ico-rec {
+  background: linear-gradient(135deg,
+    rgba(10,132,255,.2) 0%, rgba(10,132,255,.08) 100%);
+}
+.ft-ico-pre { background: linear-gradient(135deg, rgba(255,214,10,.2) 0%, rgba(255,214,10,.08) 100%); }
+
+/* ────────────────────────────────────────────────────────────────
+   17. PILLS E CHIPS — tabular nums + spring
+───────────────────────────────────────────────────────────────── */
+.ft-pill {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+.ft-size-chip,
+.ft-cat-chip {
+  transition:
+    background var(--dur-quick) var(--ease-snap),
+    color      var(--dur-quick),
+    transform  var(--dur-press) var(--ease-spring),
+    border-color var(--dur-quick);
+}
+.ft-size-chip:active,
+.ft-cat-chip:active { transform: scale(0.92); }
+
+/* ────────────────────────────────────────────────────────────────
+   18. SIMULADOR — valores financeiros com gradient text + tabular
+───────────────────────────────────────────────────────────────── */
+.ft-rcard {
+  transition: transform var(--dur-press) var(--ease-spring);
+}
+.ft-rcard:active { transform: scale(0.97); }
+
+.ft-rcard-preco .ft-rcard-val {
+  font-size: 24px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, var(--ft-acc), #FFB340);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.ft-rcard-lucro .ft-rcard-val {
+  font-size: 24px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, var(--ft-green), #34D36A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.ft-rcard-lbl {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   19. SKELETON — shimmer Apple-style
+───────────────────────────────────────────────────────────────── */
+.ft-skeleton-row,
+.ft-skeleton-card {
+  background: linear-gradient(
+    90deg,
+    var(--ft-s2) 20%,
+    var(--ft-s3) 40%,
+    var(--ft-s2) 60%
+  );
+  background-size: 300% 100%;
+  animation: ft-shimmer 1.8s ease-in-out infinite;
+  border-radius: var(--ft-r-sm);
+}
+@keyframes ft-shimmer {
+  0%   { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+/* ────────────────────────────────────────────────────────────────
+   20. FAVS BTN — spring press
+───────────────────────────────────────────────────────────────── */
+.ft-fav-btn {
+  transition:
+    color     var(--dur-quick) var(--ease-snap),
+    transform var(--dur-press) var(--ease-spring);
+}
+.ft-fav-btn:active { transform: scale(1.3); }
+
+/* ────────────────────────────────────────────────────────────────
+   21. TUTORIAL BANNER — refined
+───────────────────────────────────────────────────────────────── */
+.ft-tutorial {
+  border-width: 0.5px;
+  box-shadow: var(--shadow-card);
+  border-radius: 16px;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   22. EMPTY STATE — maior impacto
+───────────────────────────────────────────────────────────────── */
+.ft-empty-ico {
+  width: 72px;
+  height: 72px;
+  opacity: .3;
+}
+.ft-empty-title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.ft-empty-sub {
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 260px;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   23. MODAL FOOTER — glass sutil
+───────────────────────────────────────────────────────────────── */
+.ft-mft {
+  background: rgba(17,17,19,.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top-width: 0.5px;
+}
+body.theme-arctic .ft-mft,
+body.light-mode   .ft-mft {
+  background: rgba(240,240,245,.92);
+}
+body.theme-forest .ft-mft { background: rgba(7,20,16,.92); }
+
+/* ────────────────────────────────────────────────────────────────
+   24. BRANDING NO HEADER
+───────────────────────────────────────────────────────────────── */
+.ft-hdr-app {
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+.ft-hdr-pro {
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+.ft-hdr-subtitle {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   25. TABULAR NUMS — todos os valores financeiros
+───────────────────────────────────────────────────────────────── */
+.ft-rcard-val,
+.ft-rank-lucro,
+.ft-rank-marg,
+.ft-kpi-val,
+.ft-pill-acc,
+.ft-calc-val,
+.ft-gas-card-val,
+.ft-gas-item-valor,
+.neg-big-val,
+.ft-var-lucro-val,
+.ft-var-margem,
+.card-tam-preco,
+.prc-val,
+.gas-kpi-val,
+.ft-ing-row-cost {
+  font-variant-numeric: tabular-nums;
+  -webkit-font-variant-numeric: tabular-nums;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   26. COMPONENTS V2 — premium aplicado
+───────────────────────────────────────────────────────────────── */
+
+/* Variantes (ft-receitas.js V2) */
+.ft-var-tab {
+  transition:
+    color      var(--dur-quick) var(--ease-snap),
+    background var(--dur-quick) var(--ease-snap),
+    transform  var(--dur-press) var(--ease-spring);
+}
+.ft-var-tab:active { transform: scale(0.92); }
+
+.ft-var-lucro-val {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+.ft-var-lucro-val.green {
+  background: linear-gradient(135deg, var(--ft-green), #34D36A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.ft-var-lucro-val.red {
+  background: linear-gradient(135deg, var(--ft-red), #FF6B63);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* IA Panel */
+.ia-panel {
+  border-width: 0.5px;
+  box-shadow: var(--shadow-card);
+  animation: ft-section-in var(--dur-normal) var(--ease-decel);
+}
+.ia-insight {
+  transition: background var(--dur-press);
+}
+.ia-insight:active { background: var(--ft-glass); }
+
+/* Cards Negócio */
+.neg-card,
+.neg-result-card,
+.neg-stats-grid {
+  border-width: 0.5px;
+  box-shadow: var(--shadow-card);
+}
+.neg-btn-calc {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  transition:
+    transform  var(--dur-press) var(--ease-spring),
+    opacity    var(--dur-press),
+    box-shadow var(--dur-quick);
+}
+.neg-btn-calc:active {
+  transform: scale(0.96);
+  opacity: .87;
+}
+
+/* Cardápio */
+.card-item {
+  border-width: 0.5px;
+  transition:
+    transform  var(--dur-press) var(--ease-spring),
+    border-color var(--dur-quick);
+  box-shadow: var(--shadow-card);
+}
+.card-item:active { transform: scale(0.97); }
+
+/* Tamanhos */
+.tam-item {
+  border-bottom-width: 0.5px;
+  transition: opacity var(--dur-quick);
+}
+
+/* Paginação */
+.ft-pag-btn {
+  transition:
+    background var(--dur-quick),
+    transform  var(--dur-press) var(--ease-spring);
+}
+.ft-pag-btn:active:not(:disabled) { transform: scale(0.9); }
+
+/* ────────────────────────────────────────────────────────────────
+   27. LIGHT MODE — ajustes específicos
+───────────────────────────────────────────────────────────────── */
+body.theme-arctic .ft-list,
+body.light-mode   .ft-list {
+  box-shadow: 0 1px 4px rgba(0,0,0,.06), 0 0.5px 1px rgba(0,0,0,.04);
+}
+body.theme-arctic .ft-kpi,
+body.light-mode   .ft-kpi {
+  box-shadow: 0 1px 3px rgba(0,0,0,.07);
+}
+body.theme-arctic .ft-dest,
+body.light-mode   .ft-dest {
+  box-shadow: 0 1px 3px rgba(0,0,0,.07);
+}
+body.theme-arctic .ft-rank-item,
+body.light-mode   .ft-rank-item {
+  box-shadow: 0 1px 3px rgba(0,0,0,.07);
+}
+body.theme-arctic .ft-rcard-preco .ft-rcard-val,
+body.light-mode   .ft-rcard-preco .ft-rcard-val {
+  background: linear-gradient(135deg, #FF9500, #E87000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+body.theme-arctic .ft-rcard-lucro .ft-rcard-val,
+body.light-mode   .ft-rcard-lucro .ft-rcard-val {
+  background: linear-gradient(135deg, #34C759, #25A244);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+body.theme-arctic .ft-var-lucro-val.green,
+body.light-mode   .ft-var-lucro-val.green {
+  background: linear-gradient(135deg, #34C759, #1EA03A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   28. SCROLLBAR ULTRA-FINA
+───────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 2px; height: 2px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,.2); }
+body.theme-arctic ::-webkit-scrollbar-thumb,
+body.light-mode   ::-webkit-scrollbar-thumb { background: rgba(0,0,0,.08); }
+
+/* ────────────────────────────────────────────────────────────────
+   29. REDUCED MOTION — acessibilidade
+───────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration:       0.01ms !important;
+    animation-iteration-count: 1     !important;
+    transition-duration:       0.01ms !important;
+  }
+  #ft-fab { animation: none !important; }
+}

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>StockFlow Pro — Logo</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, 'Helvetica Neue', sans-serif;
+    background: #0a0f1a;
+    color: #fff;
+    min-height: 100vh;
+    padding: 48px 24px;
+  }
+
+  h2 {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 20px;
+  }
+
+  .section {
+    margin-bottom: 56px;
+  }
+
+  /* ── DARK VARIANT ── */
+  .card-dark {
+    background: linear-gradient(135deg, #0d1b2a 0%, #111827 100%);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 24px;
+    padding: 40px 48px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  /* ── LIGHT VARIANT ── */
+  .card-light {
+    background: linear-gradient(135deg, #f8faff 0%, #eef2ff 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 24px;
+    padding: 40px 48px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  /* ── ICON SIZES ── */
+  .icons-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+  }
+  .icon-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .icon-wrap span {
+    font-size: 10px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.5px;
+  }
+
+  /* ── ICON SVG ── */
+  .icon-svg {
+    border-radius: calc(28% * var(--scale, 1));
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* ── WORDMARK ── */
+  .wordmark {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .wm-name {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+    line-height: 1;
+    background: linear-gradient(135deg, #e8f0ff 0%, #b8d0ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .wm-name-dark {
+    background: linear-gradient(135deg, #0d1b2a 0%, #1a2f4a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .wm-pro {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+  }
+  .wm-pro span {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #2979FF, #00E5FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(41,121,255,0.25);
+    background-clip: unset;
+    -webkit-text-fill-color: unset;
+    color: #2979FF;
+    background: rgba(41,121,255,0.1);
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+    margin: 48px 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="section">
+  <h2>Variante Dark</h2>
+  <div class="card-dark">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="72" height="72" style="flex-shrink:0;border-radius:20px">
+      <defs>
+        <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#2979FF"/>
+          <stop offset="100%" stop-color="#00E5FF"/>
+        </linearGradient>
+        <filter id="gl">
+          <feGaussianBlur stdDeviation="2" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <rect width="120" height="120" rx="28" fill="#0D1B2A"/>
+      <rect x="0.5" y="0.5" width="119" height="119" rx="27.5" fill="none" stroke="rgba(255,255,255,0.09)" stroke-width="1"/>
+      <path d="M 82 28 C 82 28,88 28,88 38 C 88 50,72 52,60 52 C 48 52,32 54,32 66 C 32 78,38 82,50 82 C 58 82,88 82,88 82"
+        fill="none" stroke="url(#g1)" stroke-width="7" stroke-linecap="round" filter="url(#gl)"/>
+      <circle cx="88" cy="82" r="5.5" fill="#00E5FF" filter="url(#gl)"/>
+      <circle cx="82" cy="28" r="3.5" fill="#2979FF" opacity="0.8"/>
+    </svg>
+    <div class="wordmark">
+      <div class="wm-name">StockFlow</div>
+      <div class="wm-pro"><span>PRO</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section">
+  <h2>Variante Light</h2>
+  <div class="card-light">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="72" height="72" style="flex-shrink:0;border-radius:20px">
+      <defs>
+        <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#2979FF"/>
+          <stop offset="100%" stop-color="#00C8FF"/>
+        </linearGradient>
+        <filter id="gl2">
+          <feGaussianBlur stdDeviation="2" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <rect width="120" height="120" rx="28" fill="#EEF4FF"/>
+      <rect x="0.5" y="0.5" width="119" height="119" rx="27.5" fill="none" stroke="rgba(41,121,255,0.15)" stroke-width="1"/>
+      <path d="M 82 28 C 82 28,88 28,88 38 C 88 50,72 52,60 52 C 48 52,32 54,32 66 C 32 78,38 82,50 82 C 58 82,88 82,88 82"
+        fill="none" stroke="url(#g2)" stroke-width="7" stroke-linecap="round" filter="url(#gl2)"/>
+      <circle cx="88" cy="82" r="5.5" fill="#00C8FF" filter="url(#gl2)"/>
+      <circle cx="82" cy="28" r="3.5" fill="#2979FF" opacity="0.9"/>
+    </svg>
+    <div class="wordmark">
+      <div class="wm-name wm-name-dark">StockFlow</div>
+      <div class="wm-pro"><span>PRO</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section">
+  <h2>Ícone — Tamanhos</h2>
+  <div class="icons-row">
+
+    <div class="icon-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" style="border-radius:28px">
+        <defs>
+          <linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#2979FF"/>
+            <stop offset="100%" stop-color="#00E5FF"/>
+          </linearGradient>
+          <filter id="gl3">
+            <feGaussianBlur stdDeviation="2.5" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <rect width="120" height="120" rx="28" fill="#0D1B2A"/>
+        <rect x="0.5" y="0.5" width="119" height="119" rx="27.5" fill="none" stroke="rgba(255,255,255,0.09)" stroke-width="1"/>
+        <path d="M 82 28 C 82 28,88 28,88 38 C 88 50,72 52,60 52 C 48 52,32 54,32 66 C 32 78,38 82,50 82 C 58 82,88 82,88 82"
+          fill="none" stroke="url(#g3)" stroke-width="7" stroke-linecap="round" filter="url(#gl3)"/>
+        <circle cx="88" cy="82" r="5.5" fill="#00E5FF" filter="url(#gl3)"/>
+        <circle cx="82" cy="28" r="3.5" fill="#2979FF" opacity="0.8"/>
+      </svg>
+      <span>120px</span>
+    </div>
+
+    <div class="icon-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="80" height="80" style="border-radius:19px">
+        <defs>
+          <linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#2979FF"/>
+            <stop offset="100%" stop-color="#00E5FF"/>
+          </linearGradient>
+          <filter id="gl4">
+            <feGaussianBlur stdDeviation="2.5" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <rect width="120" height="120" fill="#0D1B2A"/>
+        <path d="M 82 28 C 82 28,88 28,88 38 C 88 50,72 52,60 52 C 48 52,32 54,32 66 C 32 78,38 82,50 82 C 58 82,88 82,88 82"
+          fill="none" stroke="url(#g4)" stroke-width="7" stroke-linecap="round" filter="url(#gl4)"/>
+        <circle cx="88" cy="82" r="5.5" fill="#00E5FF" filter="url(#gl4)"/>
+        <circle cx="82" cy="28" r="3.5" fill="#2979FF" opacity="0.8"/>
+      </svg>
+      <span>80px</span>
+    </div>
+
+    <div class="icon-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="48" height="48" style="border-radius:11px">
+        <defs>
+          <linearGradient id="g5" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#2979FF"/>
+            <stop offset="100%" stop-color="#00E5FF"/>
+          </linearGradient>
+          <filter id="gl5">
+            <feGaussianBlur stdDeviation="2.5" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <rect width="120" height="120" fill="#0D1B2A"/>
+        <path d="M 82 28 C 82 28,88 28,88 38 C 88 50,72 52,60 52 C 48 52,32 54,32 66 C 32 78,38 82,50 82 C 58 82,88 82,88 82"
+          fill="none" stroke="url(#g5)" stroke-width="7" stroke-linecap="round" filter="url(#gl5)"/>
+        <circle cx="88" cy="82" r="5.5" fill="#00E5FF" filter="url(#gl5)"/>
+        <circle cx="82" cy="28" r="3.5" fill="#2979FF" opacity="0.8"/>
+      </svg>
+      <span>48px</span>
+    </div>
+
+    <div class="icon-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="32" height="32" style="border-radius:7px">
+        <defs>
+          <linearGradient id="g6" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#2979FF"/>
+            <stop offset="100%" stop-color="#00E5FF"/>
+          </linearGradient>
+        </defs>
+        <rect width="120" height="120" fill="#0D1B2A"/>
+        <path d="M 82 28 C 82 28,88 28,88 38 C 88 50,72 52,60 52 C 48 52,32 54,32 66 C 32 78,38 82,50 82 C 58 82,88 82,88 82"
+          fill="none" stroke="url(#g6)" stroke-width="7" stroke-linecap="round"/>
+        <circle cx="88" cy="82" r="5.5" fill="#00E5FF"/>
+        <circle cx="82" cy="28" r="3.5" fill="#2979FF" opacity="0.8"/>
+      </svg>
+      <span>32px</span>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
